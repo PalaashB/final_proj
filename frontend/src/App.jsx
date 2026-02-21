@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Search, Upload } from "lucide-react";
 import UploadForm from "./components/UploadForm.jsx";
-import SearchForm from "./components/SearchForm.jsx";
+import ResearchForm from "./components/ResearchForm.jsx";
 import RecentItems from "./components/RecentItems.jsx";
 import StatsPanel from "./components/StatsPanel.jsx";
 
@@ -30,10 +30,10 @@ function App() {
       <div className="mx-auto max-w-6xl px-4 pt-12">
         <header className="mb-12 text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-emerald-400">
-            Echo-Locator
+            System Online
           </p>
           <h1 className="mt-3 text-4xl font-bold sm:text-5xl">
-            AI-Powered Lost &amp; Found for Fragmented Campuses
+            Semantic Lost &amp; Found
           </h1>
           <p className="mt-4 text-lg text-slate-300">
             Replace the physical scavenger hunt with semantic search. Upload once, retrieve everywhere.
@@ -67,7 +67,7 @@ function App() {
         </div>
 
         <section className="rounded-3xl border border-slate-800 bg-slate-900/70 p-8 shadow-2xl shadow-black/20 backdrop-blur">
-          {activeTab === "search" ? <SearchForm /> : <UploadForm />}
+          {activeTab === "search" ? <ResearchForm /> : <UploadForm />}
         </section>
 
         <section className="mt-12">

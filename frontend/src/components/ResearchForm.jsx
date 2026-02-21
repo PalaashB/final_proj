@@ -11,7 +11,7 @@ function formatDate(isoString) {
   }
 }
 
-function SearchForm() {
+function ResearchForm() {
   const [query, setQuery] = useState("");
   const [threshold, setThreshold] = useState(0.6);
   const [location, setLocation] = useState("");
@@ -185,4 +185,4 @@ function SearchForm() {
   );
 }
 
-export default SearchForm;
+export default ResearchForm;
