@@ -41,24 +41,24 @@ function StatsPanel() {
 
   if (loading) {
     return (
-      <div className="flex h-full items-center justify-center rounded-xl glass-card p-6">
-        <Loader2 className="h-5 w-5 animate-spin text-blue-400" />
+      <div className="flex h-full items-center justify-center rounded-2xl glass-card p-6">
+        <Loader2 className="h-6 w-6 animate-spin text-blue-400" />
       </div>
     );
   }
 
   if (!stats) {
     return (
-      <div className="rounded-lg border border-red-500/50 bg-red-900/20 p-4 text-sm text-red-200">
+      <div className="rounded-xl border-2 border-red-500/50 bg-red-900/20 p-4 text-lg text-red-200">
         Unable to load stats. Check backend logs.
       </div>
     );
   }
 
   return (
-    <div className="glass-card flex flex-col gap-6 rounded-xl p-6">
+    <div className="glass-card flex flex-col gap-6 rounded-2xl p-7">
       <div className="mb-2">
-        <h2 className="text-lg font-bold text-white">Statistics</h2>
+        <h2 className="text-2xl font-bold text-white">Statistics</h2>
       </div>
 
       <dl className="grid grid-cols-3 gap-4">
@@ -71,30 +71,30 @@ function StatsPanel() {
           };
 
           return (
-            <div key={key} className="rounded-lg border border-white/10 bg-white/5 p-4 transition-all hover:border-blue-400/30 hover:bg-white/10">
-              <dt className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-blue-300">
-                <Icon className="h-4 w-4" />
+            <div key={key} className="rounded-xl border-2 border-blue-700/20 bg-white/5 p-5 transition-all duration-300 hover:border-blue-600/50 hover:bg-white/10 hover:shadow-xl hover:shadow-blue-800/10 hover:scale-105">
+              <dt className="flex items-center gap-2 text-base font-semibold uppercase tracking-wide text-blue-300">
+                <Icon className="h-5 w-5" />
                 {labelMap[key]}
               </dt>
-              <dd className="mt-2 text-2xl font-bold text-white">{stats[key]}</dd>
+              <dd className="mt-3 text-4xl font-bold text-white">{stats[key]}</dd>
             </div>
           );
         })}
       </dl>
 
-      <div className="text-xs text-blue-300/80">
+      <div className="text-base text-blue-200/90 bg-white/5 rounded-xl p-5 border-2 border-blue-700/20">
         <p>
-          <span className="font-semibold text-white">Last Upload:</span>{" "}
+          <span className="font-bold text-white">Last Upload:</span>{" "}
           {formatTimestamp(stats.last_uploaded_at)}
         </p>
 
         {stats.top_locations.length > 0 && (
-          <p className="mt-1">
-            <span className="font-semibold text-white">Hotspots:</span>{" "}
+          <p className="mt-2">
+            <span className="font-bold text-white">Hotspots:</span>{" "}
             {stats.top_locations.map((loc, idx) => (
               <span key={loc.location}>
                 {idx > 0 && ", "}
-                {loc.location} <span className="text-blue-400/60">({loc.count})</span>
+                {loc.location} <span className="text-blue-400/70">({loc.count})</span>
               </span>
             ))}
           </p>
