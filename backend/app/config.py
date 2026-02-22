@@ -6,7 +6,7 @@ load_dotenv()
 
 class Settings:
     def __init__(self) -> None:
-        self.API_TITLE = os.getenv("ECHO_LOCATOR_TITLE", "Echo-Locator API")
+        self.API_TITLE = os.getenv("ECHO_LOCATOR_TITLE", "Back2U API")
         self.API_VERSION = "1.1.0"
         self.DATABASE_PATH = os.getenv("ECHO_LOCATOR_DB", "echolocator.db")
         self.UPLOAD_DIR = os.getenv("ECHO_LOCATOR_UPLOAD_DIR", "uploads")

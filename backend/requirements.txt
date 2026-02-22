@@ -1,6 +1,6 @@
 fastapi==0.110.0
 uvicorn[standard]==0.27.1
-torch==2.1.2
+torch
 Pillow==10.2.0
 git+https://github.com/openai/CLIP.git
 python-multipart==0.0.6

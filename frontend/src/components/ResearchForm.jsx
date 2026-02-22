@@ -2,6 +2,20 @@ import { useState } from "react";
 import { Search, Loader2, AlertTriangle, Compass } from "lucide-react";
 import { searchItems, API_BASE_URL } from "../lib/api.js";
 
+const LOCATIONS = [
+  'W.E.B. Du Bois Library',
+  'Berkshire Dining Commons',
+  'Worcester Dining Commons',
+  'Hampshire Dining Commons',
+  'Franklin Dining Commons',
+  'Lederle Graduate Research Center',
+  'Integrated Learning Center',
+  'Student Union',
+  'Rec Center',
+  'South College',
+  'Morrill Science Center'
+];
+
 function formatDate(isoString) {
   if (!isoString) return "—";
   try {
@@ -44,29 +58,28 @@ function ResearchForm() {
 
   return (
     <div>
-      <h2 className="text-2xl font-semibold text-emerald-200">Find My Lost Item</h2>
-      <p className="mt-1 text-sm text-slate-400">
-        Describe it the way you remember it. The CLIP embedding closes the vocabulary gap between how the finder tagged
-        it and how you search for it.
+      <h2 className="text-2xl font-bold text-slate-900">Find Your Lost Item</h2>
+      <p className="mt-2 text-sm text-slate-600">
+        Describe what you're looking for.
       </p>
 
       <form onSubmit={handleSearch} className="mt-8 space-y-5">
         <div>
-          <label className="block text-sm font-semibold text-slate-300">Semantic description</label>
-          <div className="mt-2 flex rounded-full border border-slate-800 bg-slate-950/60 pr-2">
+          <label className="block text-sm font-medium text-slate-700 mb-2">Search description</label>
+          <div className="flex gap-3 items-center">
             <input
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder='e.g. "green hydroflask with robotics stickers"'
-              className="flex-1 rounded-full bg-transparent px-5 py-3 text-slate-100 placeholder:text-slate-500 focus:outline-none"
+              placeholder='e.g. "black bottle with robotics stickers"'
+              className="flex-1 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
             />
             <button
               type="submit"
               disabled={searching}
-              className="inline-flex items-center gap-2 rounded-full bg-emerald-500 px-5 py-2 font-semibold text-slate-950 transition hover:bg-emerald-400 disabled:cursor-not-allowed disabled:opacity-60"
+              className="inline-flex items-center gap-2 rounded-lg bg-blue-500 px-6 py-2.5 text-sm font-medium text-white shadow-lg shadow-blue-500/30 transition-all hover:bg-blue-600 disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {searching ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}
+              {searching ? <Loader2 className="h-5 w-5 animate-spin" /> : <Search className="h-5 w-5" />}
               {searching ? "Searching…" : "Search"}
             </button>
           </div>
@@ -74,9 +87,9 @@ function ResearchForm() {
 
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
-            <label className="flex items-center justify-between text-sm text-slate-400">
-              <span>Similarity threshold (cos ≥ {threshold.toFixed(2)})</span>
-              <span className="font-semibold text-emerald-200">{Math.round(threshold * 100)}%</span>
+            <label className="flex items-center justify-between text-sm text-slate-700 mb-2">
+              <span className="font-medium">Similarity threshold</span>
+              <span className="font-semibold text-blue-600">{Math.round(threshold * 100)}%</span>
             </label>
             <input
               type="range"
@@ -85,35 +98,38 @@ function ResearchForm() {
               step={0.05}
               value={threshold}
               onChange={(e) => setThreshold(Number(e.target.value))}
-              className="mt-2 w-full accent-emerald-400"
+              className="mt-2 w-full h-2 bg-slate-200 rounded appearance-none cursor-pointer accent-blue-500"
             />
           </div>
 
           <div>
-            <label className="block text-sm text-slate-400">Filter by location (optional)</label>
-            <input
-              type="text"
+            <label className="block text-sm text-slate-700 font-medium mb-2">Location filter (optional)</label>
+            <select
               value={location}
               onChange={(e) => setLocation(e.target.value)}
-              placeholder="e.g. Library, Engineering Building"
-              className="mt-2 w-full rounded-full border border-slate-800 bg-slate-950/60 px-5 py-3 text-slate-100 placeholder:text-slate-500 focus:outline-none"
-            />
+              className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-slate-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 appearance-none cursor-pointer"
+            >
+              <option value="">All locations</option>
+              {LOCATIONS.map((loc) => (
+                <option key={loc} value={loc}>{loc}</option>
+              ))}
+            </select>
           </div>
         </div>
       </form>
 
       {error && (
-        <div className="mt-6 flex items-center gap-2 rounded-xl border border-red-400/40 bg-red-400/10 px-4 py-3 text-sm text-red-200">
-          <AlertTriangle className="h-4 w-4" />
+        <div className="mt-6 flex items-center gap-2 rounded-lg border border-red-500 bg-red-50 px-4 py-3 text-sm text-red-800">
+          <AlertTriangle className="h-5 w-5" />
           {error}
         </div>
       )}
 
       {!searching && !error && results.length === 0 && query.trim() !== "" && (
-        <div className="mt-8 rounded-2xl border border-slate-800 bg-slate-950/60 p-6 text-center text-slate-400">
-          <Compass className="mx-auto h-8 w-8 text-emerald-300" />
-          <p className="mt-3 font-semibold text-slate-200">No matches above the threshold yet.</p>
-          <p className="mt-1 text-sm">Try lowering the similarity slider or rephrasing your description.</p>
+        <div className="mt-8 rounded-xl border border-slate-200 bg-slate-50 p-6 text-center">
+          <Compass className="mx-auto h-10 w-10 text-blue-500 mb-3" />
+          <p className="font-medium text-slate-900">No matches found.</p>
+          <p className="mt-1 text-sm text-slate-600">Try adjusting the similarity threshold.</p>
         </div>
       )}
 
@@ -123,16 +139,16 @@ function ResearchForm() {
           return (
             <div
               key={item.id}
-              className="group flex flex-col overflow-hidden rounded-2xl border border-slate-800 bg-slate-950/60 shadow-lg shadow-black/20 transition hover:border-emerald-300/60 hover:shadow-emerald-500/20"
+              className="group flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-md transition-all hover:border-blue-300 hover:shadow-lg hover:-translate-y-1"
             >
               {item.image_url && (
-                <div className="relative h-60 overflow-hidden">
+                <div className="relative h-56 overflow-hidden bg-slate-100">
                   <img
                     src={`${API_BASE_URL}${item.image_url}`}
                     alt={item.title}
                     className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute bottom-3 right-3 rounded-full bg-slate-950/80 px-3 py-1 text-xs font-semibold text-emerald-200">
+                  <div className="absolute bottom-3 right-3 rounded-full bg-blue-500 px-3 py-1 text-xs font-semibold text-white shadow-lg">
                     {matchPercent}% match
                   </div>
                 </div>
@@ -140,32 +156,32 @@ function ResearchForm() {
 
               <div className="flex flex-1 flex-col gap-4 p-5">
                 <div>
-                  <h3 className="text-lg font-semibold text-slate-100">{item.title}</h3>
+                  <h3 className="text-lg font-bold text-slate-900">{item.title}</h3>
                   {item.description && (
-                    <p className="mt-2 text-sm leading-relaxed text-slate-400">{item.description}</p>
+                    <p className="mt-2 text-sm text-slate-600">{item.description}</p>
                   )}
                 </div>
 
-                <div className="space-y-2 text-sm text-slate-400">
+                <div className="space-y-2 text-sm text-slate-600">
                   {item.location && (
                     <p>
-                      <span className="font-semibold text-slate-300">Found at:</span> {item.location}
+                      <span className="font-semibold text-slate-900">Found at:</span> {item.location}
                     </p>
                   )}
                   {item.finder_contact && (
                     <p>
-                      <span className="font-semibold text-slate-300">Contact:</span> {item.finder_contact}
+                      <span className="font-semibold text-slate-900">Contact:</span> {item.finder_contact}
                     </p>
                   )}
                   <p>
-                    <span className="font-semibold text-slate-300">Logged:</span>{" "}
+                    <span className="font-semibold text-slate-900">Logged:</span>{" "}
                     {formatDate(item.created_at)}
                   </p>
                 </div>
 
-                <div className="mt-auto h-2 w-full overflow-hidden rounded-full bg-slate-800/60">
+                <div className="mt-auto h-2 w-full overflow-hidden rounded-full bg-slate-200">
                   <div
-                    className="h-full rounded-full bg-gradient-to-r from-emerald-400 to-sky-400"
+                    className="h-full rounded-full bg-blue-500"
                     style={{ width: `${matchPercent}%` }}
                   />
                 </div>
@@ -176,8 +192,8 @@ function ResearchForm() {
       </div>
 
       {searching && (
-        <div className="mt-8 flex items-center justify-center gap-3 text-sm text-slate-400">
-          <Loader2 className="h-4 w-4 animate-spin text-emerald-300" />
+        <div className="mt-8 flex items-center justify-center gap-2 text-sm text-blue-200">
+          <Loader2 className="h-4 w-4 animate-spin text-blue-400" />
           Vector search in progress…
         </div>
       )}

@@ -2,6 +2,20 @@ import { useEffect, useState } from "react";
 import { UploadCloud, CheckCircle, AlertTriangle, Loader2 } from "lucide-react";
 import { createItem } from "../lib/api.js";
 
+const LOCATIONS = [
+  'W.E.B. Du Bois Library',
+  'Berkshire Dining Commons',
+  'Worcester Dining Commons',
+  'Hampshire Dining Commons',
+  'Franklin Dining Commons',
+  'Lederle Graduate Research Center',
+  'Integrated Learning Center',
+  'Student Union',
+  'Rec Center',
+  'South College',
+  'Morrill Science Center'
+];
+
 const INITIAL_FORM = {
   title: "",
   location: "",
@@ -75,96 +89,81 @@ function UploadForm() {
 
   return (
     <div>
-      <h2 className="text-2xl font-semibold text-emerald-200">Report a Found Item</h2>
-      <p className="mt-1 text-sm text-slate-400">
-        CLIP transforms your photo into a 512-d vector so people can find it even if they describe it differently.
-      </p>
+      <h2 className="text-2xl font-bold text-slate-900">Report a Found Item</h2>
+      <p className="mt-2 text-sm text-slate-600">
+  Upload a photo and location details.
+</p>
 
-      <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+      <form onSubmit={handleSubmit} className="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20">
         <div className="grid gap-5 md:grid-cols-2">
-          <label className="flex flex-col gap-2 text-sm text-slate-300">
+          <label className="flex flex-col gap-2 text-sm text-slate-700 font-medium">
             Item title
             <input
               type="text"
-              value={form.title}
+              value={form.title} 
               onChange={updateField("title")}
-              placeholder="Hydroflask, MacBook Air, Backpack…"
+              placeholder="Bottle, Airpods, Backpack…"
               required
-              className="rounded-xl border border-slate-700 bg-slate-950/60 px-4 py-3 text-slate-100 placeholder:text-slate-500 focus:border-emerald-400 focus:outline-none"
+              className="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
             />
           </label>
 
-          <label className="flex flex-col gap-2 text-sm text-slate-300">
-            Found at
-            <input
-              type="text"
+          <label className="flex flex-col gap-2 text-sm text-green-900 font-semibold">
+          Found at
+            <select
               value={form.location}
               onChange={updateField("location")}
-              placeholder="Library Atrium, Cafeteria, Block B"
               required
-              className="rounded-xl border border-slate-700 bg-slate-950/60 px-4 py-3 text-slate-100 placeholder:text-slate-500 focus:border-emerald-400 focus:outline-none"
-            />
+              className="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-slate-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 appearance-none cursor-pointer"
+            >
+              <option value="" disabled>Select a location</option>
+              {LOCATIONS.map((loc) => (
+                <option key={loc} value={loc}>{loc}</option>
+              ))}
+            </select>
           </label>
-        </div>
+          </div>
 
-        <label className="flex flex-col gap-2 text-sm text-slate-300">
-          Describe it
-          <textarea
-            rows={4}
-            value={form.description}
-            onChange={updateField("description")}
-            placeholder="Engravings, stickers, context about where you found it…"
-            className="rounded-xl border border-slate-700 bg-slate-950/60 px-4 py-3 text-slate-100 placeholder:text-slate-500 focus:border-emerald-400 focus:outline-none"
-          />
+        <div className="rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 p-8 text-center hover:border-blue-400 transition-colors">
+        <label className="flex cursor-pointer flex-col items-center gap-4">
+          <div className="rounded-full bg-blue-500 p-4 shadow-lg shadow-blue-500/30 mx-auto w-fit">
+            <UploadCloud className="h-10 w-10 text-white" />
+          </div>
+          <span className="text-sm font-medium text-slate-700">
+            Drop the item photo here or click to browse
+          </span>
+          <span className="text-xs text-slate-500">JPG, PNG, WEBP · Max 5MB</span>
+          <input type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
         </label>
 
-        <label className="flex flex-col gap-2 text-sm text-slate-300">
-          Contact info (optional)
-          <input
-            type="text"
-            value={form.finderContact}
-            onChange={updateField("finderContact")}
-            placeholder="Email, phone, Telegram handle…"
-            className="rounded-xl border border-slate-700 bg-slate-950/60 px-4 py-3 text-slate-100 placeholder:text-slate-500 focus:border-emerald-400 focus:outline-none"
-          />
-        </label>
-
-        <div className="rounded-2xl border border-dashed border-slate-700 bg-slate-950/50 p-6 text-center">
-          <label className="flex cursor-pointer flex-col items-center gap-3">
-            <UploadCloud className="h-8 w-8 text-emerald-300" />
-            <span className="text-sm font-semibold text-slate-200">
-              Drop the item photo here or click to browse
-            </span>
-            <span className="text-xs text-slate-500">JPG, PNG, WEBP · Max ~5MB recommended</span>
-            <input type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
-          </label>
-
-          {previewUrl && (
-            <div className="mt-5 overflow-hidden rounded-xl border border-slate-700">
-              <img src={previewUrl} alt="Preview" className="h-64 w-full object-cover" />
-            </div>
-          )}
-        </div>
+        {previewUrl && (
+          <div className="mt-5 overflow-hidden rounded-lg border border-slate-200 shadow-md">
+            <img src={previewUrl} alt="Preview" className="h-72 w-full object-cover" />
+          </div>
+        )}
+      </div>
 
         <button
           type="submit"
           disabled={submitting}
-          className="inline-flex items-center gap-2 rounded-full bg-emerald-500 px-6 py-3 font-semibold text-slate-950 shadow-lg shadow-emerald-500/30 transition hover:bg-emerald-400 disabled:cursor-not-allowed disabled:opacity-60"
+          className="btn-glow inline-flex items-center gap-2 rounded-lg bg-blue-500 px-6 py-3 text-sm font-medium text-white shadow-lg shadow-blue-500/30 transition-all hover:bg-blue-600 hover:shadow-blue-500/40 disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <UploadCloud className="h-4 w-4" />}
-          {submitting ? "Vectorizing…" : "Upload to Echo-Locator"}
+          <span className="relative z-10 flex items-center gap-3">
+            {submitting ? <Loader2 className="h-6 w-6 animate-spin" /> : <UploadCloud className="h-6 w-6" />}
+            {submitting ? "Processing…" : "Submit to Back2U"}
+          </span>
         </button>
 
         {status.kind === "success" && (
-          <div className="flex items-center gap-2 rounded-xl border border-emerald-400/40 bg-emerald-400/10 px-4 py-3 text-sm text-emerald-200">
-            <CheckCircle className="h-4 w-4" />
+          <div className="flex items-center gap-2 rounded-lg border border-green-500 bg-green-50 px-4 py-3 text-sm text-green-800">
+            <CheckCircle className="h-5 w-5" />
             {status.message}
           </div>
         )}
 
         {status.kind === "error" && (
-          <div className="flex items-center gap-2 rounded-xl border border-red-400/40 bg-red-400/10 px-4 py-3 text-sm text-red-200">
-            <AlertTriangle className="h-4 w-4" />
+          <div className="flex items-center gap-2 rounded-lg border border-red-500 bg-red-50 px-4 py-3 text-sm text-red-800">
+            <AlertTriangle className="h-5 w-5" />
             {status.message}
           </div>
         )}

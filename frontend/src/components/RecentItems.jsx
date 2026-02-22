@@ -25,50 +25,49 @@ function RecentItems({ compact = false }) {
   }, [compact]);
 
   return (
-    <div className={`rounded-3xl border border-slate-800 bg-slate-900/60 ${compact ? "p-5" : "p-8"}`}>
-      <div className="mb-4 flex items-center gap-3">
-        <Clock3 className="h-5 w-5 text-emerald-300" />
-        <h2 className="text-lg font-semibold text-slate-100">
-          {compact ? "Latest Uploads" : "Recently Indexed Items"}
+    <div className={`glass-card rounded-xl ${compact ? "p-5" : "p-6"}`}>
+      <div className="mb-6">
+        <h2 className="text-lg font-bold text-white">
+          {compact ? "Latest Finds" : "Recently Added"}
         </h2>
       </div>
 
       {loading ? (
-        <div className="flex items-center gap-2 text-sm text-slate-400">
-          <Loader2 className="h-4 w-4 animate-spin text-emerald-300" />
-          Syncing with network…
+        <div className="flex items-center gap-2 text-sm text-blue-300">
+          <Loader2 className="h-4 w-4 animate-spin text-blue-400" />
+          Loading…
         </div>
       ) : items.length === 0 ? (
-        <div className="flex items-center gap-2 text-sm text-slate-400">
-          <PackageSearch className="h-4 w-4 text-slate-500" />
-          No items ingested yet.
+        <div className="flex items-center gap-2 text-sm text-blue-300/70">
+          <PackageSearch className="h-4 w-4 text-blue-400/50" />
+          No items yet.
         </div>
       ) : (
         <div className={`grid gap-4 ${compact ? "" : "sm:grid-cols-2"}`}>
           {items.map((item) => (
             <article
               key={item.id}
-              className="flex gap-4 rounded-2xl border border-slate-800/80 bg-slate-950/80 p-4 transition hover:border-emerald-300/60"
+              className="flex gap-3 rounded-lg border border-white/10 bg-white/5 p-3 transition-all hover:border-blue-400/30 hover:bg-white/10"
             >
               {item.image_url ? (
                 <img
                   src={`${API_BASE_URL}${item.image_url}`}
                   alt={item.title}
-                  className="h-20 w-20 flex-none rounded-xl object-cover"
+                  className="h-16 w-16 flex-none rounded-lg object-cover border border-white/10"
                 />
               ) : (
-                <div className="flex h-20 w-20 items-center justify-center rounded-xl bg-slate-900 text-slate-500">
+                <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-slate-800/60 text-blue-300/50 border border-white/10">
                   <PackageSearch className="h-6 w-6" />
                 </div>
               )}
 
               <div className="flex flex-1 flex-col">
-                <h3 className="text-sm font-semibold text-slate-100">{item.title}</h3>
+                <h3 className="text-sm font-semibold text-white">{item.title}</h3>
                 {item.description && (
-                  <p className="mt-1 line-clamp-2 text-xs text-slate-400">{item.description}</p>
+                  <p className="mt-1 line-clamp-2 text-xs text-blue-200/80">{item.description}</p>
                 )}
-                <div className="mt-auto flex items-center gap-2 text-xs text-slate-500">
-                  <MapPin className="h-3 w-3 text-emerald-300" />
+                <div className="mt-auto flex items-center gap-1 text-xs text-blue-300/70">
+                  <MapPin className="h-3 w-3 text-blue-400" />
                   {item.location || "Location unavailable"}
                 </div>
               </div>

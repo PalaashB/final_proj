@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Activity, MapPin, Package, TrendingUp, Loader2 } from "lucide-react";
+import { MapPin, Package, TrendingUp, Loader2 } from "lucide-react";
 import { getStats } from "../lib/api.js";
 
 const ICONS = {
@@ -41,25 +41,24 @@ function StatsPanel() {
 
   if (loading) {
     return (
-      <div className="flex h-full items-center justify-center rounded-3xl border border-slate-800 bg-slate-900/60 p-6">
-        <Loader2 className="h-5 w-5 animate-spin text-emerald-300" />
+      <div className="flex h-full items-center justify-center rounded-xl glass-card p-6">
+        <Loader2 className="h-5 w-5 animate-spin text-blue-400" />
       </div>
     );
   }
 
   if (!stats) {
     return (
-      <div className="rounded-3xl border border-red-500/40 bg-red-500/10 p-6 text-sm text-red-200">
+      <div className="rounded-lg border border-red-500/50 bg-red-900/20 p-4 text-sm text-red-200">
         Unable to load stats. Check backend logs.
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col gap-6 rounded-3xl border border-slate-800 bg-slate-900/60 p-6">
-      <div className="flex items-center gap-3">
-        <Activity className="h-5 w-5 text-emerald-300" />
-        <h2 className="text-lg font-semibold text-slate-100">Network Pulse</h2>
+    <div className="glass-card flex flex-col gap-6 rounded-xl p-6">
+      <div className="mb-2">
+        <h2 className="text-lg font-bold text-white">Statistics</h2>
       </div>
 
       <dl className="grid grid-cols-3 gap-4">
@@ -72,30 +71,30 @@ function StatsPanel() {
           };
 
           return (
-            <div key={key} className="rounded-2xl border border-slate-800/60 bg-slate-950/40 p-4">
-              <dt className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-slate-500">
-                <Icon className="h-4 w-4 text-emerald-300" />
+            <div key={key} className="rounded-lg border border-white/10 bg-white/5 p-4 transition-all hover:border-blue-400/30 hover:bg-white/10">
+              <dt className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-blue-300">
+                <Icon className="h-4 w-4" />
                 {labelMap[key]}
               </dt>
-              <dd className="mt-2 text-2xl font-semibold text-emerald-200">{stats[key]}</dd>
+              <dd className="mt-2 text-2xl font-bold text-white">{stats[key]}</dd>
             </div>
           );
         })}
       </dl>
 
-      <div className="text-xs text-slate-400">
+      <div className="text-xs text-blue-300/80">
         <p>
-          <span className="font-semibold text-slate-300">Last Upload:</span>{" "}
+          <span className="font-semibold text-white">Last Upload:</span>{" "}
           {formatTimestamp(stats.last_uploaded_at)}
         </p>
 
         {stats.top_locations.length > 0 && (
           <p className="mt-1">
-            <span className="font-semibold text-slate-300">Hotspots:</span>{" "}
+            <span className="font-semibold text-white">Hotspots:</span>{" "}
             {stats.top_locations.map((loc, idx) => (
               <span key={loc.location}>
                 {idx > 0 && ", "}
-                {loc.location} <span className="text-slate-500">({loc.count})</span>
+                {loc.location} <span className="text-blue-400/60">({loc.count})</span>
               </span>
             ))}
           </p>
