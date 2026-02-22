@@ -47,7 +47,7 @@ function RecentItems({ compact = false }) {
           {items.map((item) => (
             <article
               key={item.id}
-              className="flex gap-4 rounded-xl border-2 border-[#F5E6D3]/20 bg-[#F5E6D3]/5 p-4 transition-all duration-300 hover:border-[#FF8C42]/50 hover:bg-[#F5E6D3]/10 hover:shadow-xl"
+              className="flex gap-4 rounded-xl border-2 border-[#F5E6D3]/20 bg-[#F5E6D3]/5 p-4"
             >
               {item.image_url ? (
                 <img

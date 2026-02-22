@@ -71,7 +71,7 @@ function StatsPanel() {
           };
 
           return (
-            <div key={key} className="rounded-xl border-2 border-[#F5E6D3]/20 bg-[#F5E6D3]/5 p-5 transition-all duration-300">
+            <div key={key} className="rounded-xl border-2 border-[#F5E6D3]/20 bg-[#F5E6D3]/5 p-5">
               <dt className="flex items-center gap-2 text-base font-semibold uppercase tracking-wide text-[#F5E6D3]/80">
                 <Icon className="h-5 w-5" />
                 {labelMap[key]}
