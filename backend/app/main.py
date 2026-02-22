@@ -4,11 +4,10 @@ from fastapi import BackgroundTasks, Depends, FastAPI, File, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from .config import Settings, get_settings
-from .engine import EchoLocatorEngine
+from .engine import SemanticEngine
 from .schemas import ItemCreateResponse, ItemPublic, ItemsResponse, SearchResponse, StatsSnapshot
 
 settings = get_settings()
-
 app = FastAPI(title=settings.API_TITLE, version=settings.API_VERSION)
 
 app.add_middleware(
@@ -22,7 +21,7 @@ app.add_middleware(
 upload_dir = Path(settings.UPLOAD_DIR)
 upload_dir.mkdir(parents=True, exist_ok=True)
 
-engine = EchoLocatorEngine(db_path=settings.DATABASE_PATH, upload_dir=upload_dir)
+engine = SemanticEngine(db_path=settings.DATABASE_PATH, upload_dir=upload_dir)
 app.mount("/uploads", StaticFiles(directory=upload_dir), name="uploads")
 
 @app.get("/health")
@@ -32,9 +31,7 @@ async def health() -> dict:
 @app.post("/api/items", response_model=ItemCreateResponse, status_code=201)
 async def create_item(
     background_tasks: BackgroundTasks,
-    title: str = Form(..., min_length=2, max_length=120),
     location: str = Form(..., min_length=2, max_length=120),
-    description: Optional[str] = Form(None, max_length=500),
     finder_contact: Optional[str] = Form(None, max_length=200),
     image: UploadFile = File(...),
 ):
@@ -48,9 +45,7 @@ async def create_item(
     try:
         item = engine.add_item(
             image_bytes=image_bytes,
-            title=title.strip(),
             location=location.strip(),
-            description=(description or "").strip(),
             finder_contact=(finder_contact or "").strip(),
         )
     except ValueError as exc:

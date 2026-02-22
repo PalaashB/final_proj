@@ -3,8 +3,6 @@ from pydantic import BaseModel, Field
 
 class ItemPublic(BaseModel):
     id: int
-    title: str
-    description: Optional[str] = None
     location: Optional[str] = None
     finder_contact: Optional[str] = None
     image_url: Optional[str] = None
