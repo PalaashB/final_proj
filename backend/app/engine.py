@@ -197,13 +197,19 @@ class EchoLocatorEngine:
 
         for row in rows:
             vector = torch.from_numpy(np.frombuffer(row["vector"], dtype=np.float32))
-
-            similarity = torch.nn.functional.cosine_similarity(text_embedding, vector, dim=0).item()
-            if similarity < threshold:
+            
+            # 1. Get the raw CLIP score (usually 0.15 to 0.35)
+            raw_similarity = torch.nn.functional.cosine_similarity(text_embedding, vector, dim=0).item()
+            
+            # 2. Multiply by 3.0 to scale it into a human-readable 0 to 1.0 percentage
+            scaled_similarity = min(float(raw_similarity) * 3.0, 1.0)
+            
+            # 3. Now check it against the frontend slider threshold
+            if scaled_similarity < threshold:
                 continue
 
             item = self._row_to_public(row)
-            item["similarity"] = round(float(similarity), 4)
+            item["similarity"] = round(scaled_similarity, 4)
             results.append(item)
 
         results.sort(key=lambda r: r["similarity"], reverse=True)
