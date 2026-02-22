@@ -6,9 +6,9 @@ Instead of manually tagging objects, the system uses OpenAI’s CLIP model to ge
 
 Built with FastAPI, React (Vite), SQLite, PyTorch, and CLIP.
 
---
+---
 
-# What It Does
+## What It Does
 
 - Upload a found item with image and location
 - Prevent duplicate image uploads using SHA256 hashing
@@ -93,3 +93,52 @@ BACK2U/
 │   └── node_modules/
 │
 └── README.md
+---
+
+## Key Design Decisions
+
+SQLite for portability and simplicity during hackathon
+
+SHA256 hashing to prevent duplicate uploads
+
+Embeddings stored directly in database
+
+Cropped + full image embeddings for stronger matching
+
+Location filtering handled at SQL level
+
+Thread-safe SQLite access with locking
+---
+## Limitations
+
+No authentication
+
+No claim or messaging system yet
+
+SQLite not ideal for large-scale deployment
+
+CLIP inference may be slow on CPU
+
+No object detection, purely semantic similarity
+
+Future Improvements
+
+User accounts and claim flow
+
+Vector database (FAISS or Pinecone)
+
+Dockerized deployment
+
+Admin moderation tools
+
+Image-to-image search
+
+
+---
+## Why We Built This
+
+Campus lost and found systems are usually manual and slow. People describe objects differently, and keyword search often fails.
+
+We wanted to build something that understands what an object looks like, not just what someone typed.
+
+Back2U connects images and text using vision-language models to make lost and found smarter.
