@@ -93,48 +93,40 @@ BACK2U/
 │   └── node_modules/
 │
 └── README.md
+
 ---
 
 ## Key Design Decisions
 
-SQLite for portability and simplicity during hackathon
+- SQLite for portability and simplicity during hackathon  
+- SHA256 hashing to prevent duplicate uploads  
+- Embeddings stored directly in database  
+- Cropped + full image embeddings for stronger matching  
+- Location filtering handled at SQL level  
+- Thread-safe SQLite access with locking  
 
-SHA256 hashing to prevent duplicate uploads
-
-Embeddings stored directly in database
-
-Cropped + full image embeddings for stronger matching
-
-Location filtering handled at SQL level
-
-Thread-safe SQLite access with locking
 ---
+
 ## Limitations
 
-No authentication
-
-No claim or messaging system yet
-
-SQLite not ideal for large-scale deployment
-
-CLIP inference may be slow on CPU
-
-No object detection, purely semantic similarity
-
-Future Improvements
-
-User accounts and claim flow
-
-Vector database (FAISS or Pinecone)
-
-Dockerized deployment
-
-Admin moderation tools
-
-Image-to-image search
-
+- No authentication  
+- No claim or messaging system yet  
+- SQLite not ideal for large-scale deployment  
+- CLIP inference may be slow on CPU  
+- No object detection, purely semantic similarity  
 
 ---
+
+## Future Improvements
+
+- User accounts and claim flow  
+- Vector database (FAISS or Pinecone)  
+- Dockerized deployment  
+- Admin moderation tools  
+- Image-to-image search  
+
+---
+
 ## Why We Built This
 
 Campus lost and found systems are usually manual and slow. People describe objects differently, and keyword search often fails.
