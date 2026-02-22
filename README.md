@@ -42,13 +42,14 @@ Built with FastAPI, React (Vite), SQLite, PyTorch, and CLIP.
 
 ### Image Upload Flow
 1. User uploads an image.
-2. Backend hashes the image to prevent duplicates.
-3. The image is encoded using CLIP.
+2. The image is saved in `/uploads`.
+3. Backend hashes the image to prevent duplicates.
+4. The image is encoded using CLIP.
    - Full image embedding
    - Center-cropped embedding
-4. The embeddings are averaged and normalized.
-5. The vector is stored in SQLite as a float32 BLOB.
-6. The image is saved in `/uploads`.
+5. The embeddings are averaged and normalized.
+6. The vector is stored in SQLite as a float32 BLOB.
+
 
 ### Search Flow
 1. User enters a natural language query.
