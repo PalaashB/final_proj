@@ -89,14 +89,14 @@ function UploadForm() {
 
   return (
     <div>
-      <h2 className="text-4xl font-bold text-slate-900">Report a Found Item</h2>
-      <p className="mt-2 text-lg text-slate-600">
+      <h2 className="text-4xl font-bold text-[#1B4D3E]">Report a Found Item</h2>
+      <p className="mt-3 text-lg text-[#143A2F]">
         Upload a photo and location details.
       </p>
 
       <form onSubmit={handleSubmit} className="mt-8 space-y-8">
         <div className="grid gap-6 md:grid-cols-2">
-          <label className="flex flex-col gap-3 text-lg text-slate-700 font-semibold">
+          <label className="flex flex-col gap-3 text-lg text-[#1B4D3E] font-semibold">
             Item title
             <input
               type="text"
@@ -104,17 +104,17 @@ function UploadForm() {
               onChange={updateField("title")}
               placeholder="Bottle, Airpods, Backpack…"
               required
-              className="rounded-xl border-2 border-slate-700/30 bg-white px-5 py-4 text-lg text-slate-900 placeholder:text-slate-500 focus:border-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-700/20 transition-all shadow-sm hover:border-slate-700/50 hover:shadow-md"
+              className="rounded-xl border-2 border-[#1B4D3E]/30 bg-white px-5 py-4 text-lg text-[#1B4D3E] placeholder:text-[#1B4D3E]/50 focus:border-[#FF8C42] focus:outline-none focus:ring-4 focus:ring-[#FF8C42]/20 transition-all shadow-sm hover:border-[#1B4D3E]/50 hover:shadow-md"
             />
           </label>
 
-          <label className="flex flex-col gap-3 text-lg text-slate-700 font-semibold">
+          <label className="flex flex-col gap-3 text-lg text-[#1B4D3E] font-semibold">
             Found at
             <select
               value={form.location}
               onChange={updateField("location")}
               required
-              className="rounded-xl border-2 border-slate-700/30 bg-white px-5 py-4 text-lg text-slate-900 focus:border-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-700/20 appearance-none cursor-pointer transition-all shadow-sm hover:border-slate-700/50 hover:shadow-md"
+              className="rounded-xl border-2 border-[#1B4D3E]/30 bg-white px-5 py-4 text-lg text-[#1B4D3E] focus:border-[#FF8C42] focus:outline-none focus:ring-4 focus:ring-[#FF8C42]/20 appearance-none cursor-pointer transition-all shadow-sm hover:border-[#1B4D3E]/50 hover:shadow-md"
             >
               <option value="" disabled>Select a location</option>
               {LOCATIONS.map((loc) => (
@@ -124,20 +124,20 @@ function UploadForm() {
           </label>
         </div>
 
-        <div className="rounded-2xl border-3 border-dashed border-slate-700/30 bg-slate-50 p-12 text-center hover:border-blue-700/50 hover:bg-slate-100 transition-all duration-300">
+        <div className="rounded-2xl border-3 border-dashed border-[#1B4D3E]/30 bg-[#F5E6D3]/30 p-12 text-center hover:border-[#FF8C42]/50 hover:bg-[#F5E6D3]/50 transition-all duration-300">
           <label className="flex cursor-pointer flex-col items-center gap-5">
-            <div className="rounded-2xl bg-gradient-to-br from-blue-800 via-blue-700 to-blue-900 p-6 shadow-2xl shadow-blue-900/50 mx-auto w-fit hover:scale-110 transition-transform duration-300">
+            <div className="rounded-2xl bg-[#FF8C42] p-6 shadow-2xl shadow-[#FF8C42]/50 mx-auto w-fit hover:scale-110 transition-transform duration-300">
               <UploadCloud className="h-12 w-12 text-white" />
             </div>
-            <span className="text-xl font-bold text-slate-800">
+            <span className="text-xl font-bold text-[#1B4D3E]">
               Drop the item photo here or click to browse
             </span>
-            <span className="text-lg text-slate-600">JPG, PNG, WEBP · Max 5MB</span>
+            <span className="text-lg text-[#143A2F]">JPG, PNG, WEBP · Max 5MB</span>
             <input type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
           </label>
 
           {previewUrl && (
-            <div className="mt-8 overflow-hidden rounded-2xl border-2 border-slate-700/30 shadow-2xl">
+            <div className="mt-8 overflow-hidden rounded-2xl border-2 border-[#1B4D3E]/30 shadow-2xl">
               <img src={previewUrl} alt="Preview" className="h-80 w-full object-cover" />
             </div>
           )}
@@ -146,7 +146,7 @@ function UploadForm() {
         <button
           type="submit"
           disabled={submitting}
-          className="btn-glow w-full inline-flex items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-blue-800 via-blue-700 to-blue-800 px-8 py-5 text-xl font-bold text-white shadow-2xl shadow-blue-800/50 transition-all hover:shadow-blue-800/70 hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-60"
+          className="btn-glow w-full inline-flex items-center justify-center gap-3 rounded-xl bg-[#FF8C42] px-8 py-5 text-xl font-bold text-white shadow-2xl shadow-[#FF8C42]/50 transition-all hover:bg-[#FF8C42]/90 hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-60"
         >
           {submitting ? <Loader2 className="h-6 w-6 animate-spin" /> : <UploadCloud className="h-6 w-6" />}
           {submitting ? "Processing…" : "Submit to Back2U"}

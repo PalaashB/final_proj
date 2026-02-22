@@ -58,26 +58,26 @@ function ResearchForm() {
 
   return (
     <div>
-      <h2 className="text-4xl font-bold text-slate-900">Find Your Lost Item</h2>
-      <p className="mt-2 text-lg text-slate-600">
+      <h2 className="text-4xl font-bold text-[#1B4D3E]">Find Your Lost Item</h2>
+      <p className="mt-3 text-lg text-[#143A2F]">
         Describe what you're looking for.
       </p>
 
       <form onSubmit={handleSearch} className="mt-8 space-y-6">
         <div>
-          <label className="block text-lg font-semibold text-slate-700 mb-3">Search description</label>
+          <label className="block text-lg font-semibold text-[#1B4D3E] mb-3">Search description</label>
           <div className="flex gap-3 items-center">
             <input
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder='e.g. "black bottle with robotics stickers"'
-              className="flex-1 rounded-xl border-2 border-slate-700/30 bg-white px-5 py-4 text-lg text-slate-900 placeholder:text-slate-500 focus:border-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-700/20 transition-all shadow-sm hover:border-slate-700/50 hover:shadow-md"
+              className="flex-1 rounded-xl border-2 border-[#1B4D3E]/30 bg-white px-5 py-4 text-lg text-[#1B4D3E] placeholder:text-[#1B4D3E]/50 focus:border-[#FF8C42] focus:outline-none focus:ring-4 focus:ring-[#FF8C42]/20 transition-all shadow-sm hover:border-[#1B4D3E]/50 hover:shadow-md"
             />
             <button
               type="submit"
               disabled={searching}
-              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-800 via-blue-700 to-blue-800 px-8 py-4 text-lg font-bold text-white shadow-xl shadow-blue-800/40 transition-all hover:shadow-2xl hover:shadow-blue-800/60 hover:scale-105 disabled:cursor-not-allowed disabled:opacity-60"
+              className="inline-flex items-center gap-2 rounded-xl bg-[#FF8C42] px-8 py-4 text-lg font-bold text-white shadow-xl shadow-[#FF8C42]/40 transition-all hover:bg-[#FF8C42]/90 hover:scale-105 disabled:cursor-not-allowed disabled:opacity-60"
             >
               {searching ? <Loader2 className="h-5 w-5 animate-spin" /> : <Search className="h-5 w-5" />}
               {searching ? "Searching…" : "Search"}
@@ -86,10 +86,10 @@ function ResearchForm() {
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2">
-          <div className="p-6 rounded-xl bg-slate-100 border-2 border-slate-700/30 shadow-sm">
-            <label className="flex items-center justify-between text-lg text-slate-700 mb-3">
+          <div className="p-6 rounded-xl bg-[#F5E6D3]/30 border-2 border-[#1B4D3E]/20 shadow-sm">
+            <label className="flex items-center justify-between text-lg text-[#1B4D3E] mb-3">
               <span className="font-semibold">Similarity threshold</span>
-              <span className="font-bold text-blue-700 text-2xl">{Math.round(threshold * 100)}%</span>
+              <span className="font-bold text-[#FF8C42] text-2xl">{Math.round(threshold * 100)}%</span>
             </label>
             <input
               type="range"
@@ -98,16 +98,16 @@ function ResearchForm() {
               step={0.05}
               value={threshold}
               onChange={(e) => setThreshold(Number(e.target.value))}
-              className="mt-2 w-full h-3 bg-slate-300 rounded-full appearance-none cursor-pointer accent-blue-700"
+              className="mt-2 w-full h-3 bg-[#1B4D3E]/20 rounded-full appearance-none cursor-pointer accent-[#FF8C42]"
             />
           </div>
 
           <div>
-            <label className="block text-lg text-slate-700 font-semibold mb-3">Location filter</label>
+            <label className="block text-lg text-[#1B4D3E] font-semibold mb-3">Location filter</label>
             <select
               value={location}
               onChange={(e) => setLocation(e.target.value)}
-              className="w-full rounded-xl border-2 border-slate-700/30 bg-white px-5 py-4 text-lg text-slate-900 focus:border-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-700/20 appearance-none cursor-pointer transition-all shadow-sm hover:border-slate-700/50 hover:shadow-md"
+              className="w-full rounded-xl border-2 border-[#1B4D3E]/30 bg-white px-5 py-4 text-lg text-[#1B4D3E] focus:border-[#FF8C42] focus:outline-none focus:ring-4 focus:ring-[#FF8C42]/20 appearance-none cursor-pointer transition-all shadow-sm hover:border-[#1B4D3E]/50 hover:shadow-md"
             >
               <option value="">All locations</option>
               {LOCATIONS.map((loc) => (
@@ -126,10 +126,10 @@ function ResearchForm() {
       )}
 
       {!searching && !error && results.length === 0 && query.trim() !== "" && (
-        <div className="mt-8 rounded-2xl border-2 border-slate-700/30 bg-slate-100 p-8 text-center shadow-lg">
-          <Compass className="mx-auto h-12 w-12 text-blue-700 mb-4" />
-          <p className="font-bold text-slate-900 text-2xl">No matches found.</p>
-          <p className="mt-2 text-lg text-slate-600">Try adjusting the similarity threshold.</p>
+        <div className="mt-8 rounded-2xl border-2 border-[#1B4D3E]/30 bg-[#F5E6D3]/50 p-8 text-center shadow-lg">
+          <Compass className="mx-auto h-12 w-12 text-[#FF8C42] mb-4" />
+          <p className="font-bold text-[#1B4D3E] text-2xl">No matches found.</p>
+          <p className="mt-2 text-lg text-[#14 3A2F]">Try adjusting the similarity threshold.</p>
         </div>
       )}
 
@@ -139,16 +139,16 @@ function ResearchForm() {
           return (
             <div
               key={item.id}
-              className="group flex flex-col overflow-hidden rounded-2xl border-2 border-slate-700/30 bg-white shadow-xl transition-all duration-300 hover:border-blue-700/60 hover:shadow-2xl hover:shadow-blue-900/20 hover:-translate-y-2"
+              className="group flex flex-col overflow-hidden rounded-2xl border-2 border-[#1B4D3E]/30 bg-white shadow-xl transition-all duration-300 hover:border-[#FF8C42] hover:shadow-2xl hover:-translate-y-2"
             >
               {item.image_url && (
-                <div className="relative h-56 overflow-hidden bg-slate-100">
+                <div className="relative h-56 overflow-hidden bg-[#F5E6D3]/30">
                   <img
                     src={`${API_BASE_URL}${item.image_url}`}
                     alt={item.title}
                     className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
                   />
-                  <div className="absolute bottom-3 right-3 rounded-full bg-gradient-to-r from-blue-800 to-blue-700 px-4 py-2 text-base font-bold text-white shadow-xl shadow-blue-900/50">
+                  <div className="absolute bottom-3 right-3 rounded-full bg-[#FF8C42] px-4 py-2 text-base font-bold text-white shadow-xl">
                     {matchPercent}% match
                   </div>
                 </div>
@@ -156,32 +156,32 @@ function ResearchForm() {
 
               <div className="flex flex-1 flex-col gap-4 p-6">
                 <div>
-                  <h3 className="text-2xl font-bold text-slate-900">{item.title}</h3>
+                  <h3 className="text-2xl font-bold text-[#1B4D3E]">{item.title}</h3>
                   {item.description && (
-                    <p className="mt-2 text-lg text-slate-600 leading-relaxed">{item.description}</p>
+                    <p className="mt-2 text-lg text-[#14 3A2F] leading-relaxed">{item.description}</p>
                   )}
                 </div>
 
-                <div className="space-y-2 text-lg text-slate-600">
+                <div className="space-y-2 text-lg text-[#14 3A2F]">
                   {item.location && (
                     <p>
-                      <span className="font-bold text-slate-900">Found at:</span> {item.location}
+                      <span className="font-bold text-[#1B4D3E]">Found at:</span> {item.location}
                     </p>
                   )}
                   {item.finder_contact && (
                     <p>
-                      <span className="font-bold text-slate-900">Contact:</span> {item.finder_contact}
+                      <span className="font-bold text-[#1B4D3E]">Contact:</span> {item.finder_contact}
                     </p>
                   )}
                   <p>
-                    <span className="font-bold text-slate-900">Logged:</span>{" "}
+                    <span className="font-bold text-[#1B4D3E]">Logged:</span>{" "}
                     {formatDate(item.created_at)}
                   </p>
                 </div>
 
-                <div className="mt-auto h-3 w-full overflow-hidden rounded-full bg-slate-200">
+                <div className="mt-auto h-3 w-full overflow-hidden rounded-full bg-[#1B4D3E]/20">
                   <div
-                    className="h-full rounded-full bg-gradient-to-r from-blue-800 to-blue-700 shadow-sm"
+                    className="h-full rounded-full bg-[#FF8C42] shadow-sm"
                     style={{ width: `${matchPercent}%` }}
                   />
                 </div>
@@ -192,8 +192,8 @@ function ResearchForm() {
       </div>
 
       {searching && (
-        <div className="mt-8 flex items-center justify-center gap-2 text-lg text-blue-200">
-          <Loader2 className="h-5 w-5 animate-spin text-blue-400" />
+        <div className="mt-8 flex items-center justify-center gap-2 text-lg text-[#F5E6D3]">
+          <Loader2 className="h-5 w-5 animate-spin text-[#FF8C42]" />
           Vector search in progress…
         </div>
       )}
