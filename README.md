@@ -60,40 +60,6 @@ Built with FastAPI, React (Vite), SQLite, PyTorch, and CLIP.
 
 No manual tagging required.
 
-## Project Structure
-
-BACK2U/
-│
-├── backend/
-│   ├── app/
-│   │   ├── main.py
-│   │   ├── engine.py
-│   │   ├── schemas.py
-│   │   ├── config.py
-│   │   └── __init__.py
-│   │
-│   ├── uploads/              # Stored item images
-│   ├── echolocator.db        # SQLite database
-│   └── requirements.txt
-│
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── HeroSection.jsx
-│   │   │   ├── UploadForm.jsx
-│   │   │   ├── ResearchForm.jsx
-│   │   │   ├── RecentItems.jsx
-│   │   │   └── StatsPanel.jsx
-│   │   │
-│   │   ├── App.jsx
-│   │   ├── main.jsx
-│   │   └── styles.css
-│   │
-│   ├── package.json
-│   └── node_modules/
-│
-└── README.md
-
 ---
 
 ## Key Design Decisions
