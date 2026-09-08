@@ -1,4 +1,4 @@
-# Back2U – AI Powered Lost & Found
+# Echo Locator – AI Powered Lost & Found
 
 Back2U is a semantic lost and found platform built during a hackathon. It helps students find lost items on campus using natural language search instead of exact keyword matching.
 
